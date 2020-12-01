@@ -34,22 +34,16 @@ class SudokuSolver:
 
     def solve_mrv(self, board):
         self.recursions_mrv += 1
-        lowest_score_pair = PositionWithValues(Position(0, 0), range(10))
+        lowest_score_pair = PositionWithValues(Position(-1, -1), range(10))
         for score_pair in self.get_zero_scores(board):
-            if score_pair is None:
-                return True
-            position = score_pair.position
-
-            if len(score_pair.values) == 1:
-                board[position.row][position.column] = score_pair.values[0]
-                if self.solve_mrv(board):
-                    return True
-                board[position.row][position.column] = 0
-            elif len(score_pair.values) < len(lowest_score_pair.values):
+            if len(score_pair.values) <= len(lowest_score_pair.values):
                 lowest_score_pair = score_pair
 
+        if lowest_score_pair.position.row == -1:
+            return True
+
+        position = lowest_score_pair.position
         for possible in lowest_score_pair.values:
-            position = lowest_score_pair.position
             board[position.row][position.column] = possible
             if self.solve_mrv(board):
                 return True
@@ -64,7 +58,6 @@ class SudokuSolver:
                     position = Position(row, column)
                     values = self.get_possible_values(board, position)
                     yield PositionWithValues(position, list(values))
-        yield None
 
     def get_first_zero(self, board):
         row = 0
