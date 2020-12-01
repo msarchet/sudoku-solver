@@ -15,7 +15,10 @@ class SudokuSolver:
         self.recursions_basic = 0
         self.recursions_mrv = 0
 
-    def solve_basic(self, board):
+    def solve_basic(self, board, reset_recursions=False):
+        if reset_recursions:
+            self.recursions_basic = 0
+
         self.recursions_basic += 1
 
         zero_position = self.get_first_zero(board)
@@ -32,14 +35,18 @@ class SudokuSolver:
 
         return False
 
-    def solve_mrv(self, board):
+    def solve_mrv(self, board, reset_recursions=False):
+        if reset_recursions:
+            self.recursions_mrv = 0
+
         self.recursions_mrv += 1
-        lowest_score_pair = PositionWithValues(Position(-1, -1), range(10))
+        lowest_score_pair: PositionWithValues = None
         for score_pair in self.get_zero_scores(board):
-            if len(score_pair.values) <= len(lowest_score_pair.values):
+            if lowest_score_pair is None \
+                    or len(score_pair.values) <= len(lowest_score_pair.values):
                 lowest_score_pair = score_pair
 
-        if lowest_score_pair.position.row == -1:
+        if lowest_score_pair is None:
             return True
 
         position = lowest_score_pair.position
@@ -71,7 +78,6 @@ class SudokuSolver:
         return None
 
     def get_possible_values(self, board, position):
-        # box boundaries
         box_row_start = position.row // 3 * 3
         box_column_start = position.column // 3 * 3
         box_row_end = box_row_start + 3
@@ -86,5 +92,3 @@ class SudokuSolver:
                         values.discard(board[row][column])
         for value in values:
             yield value
-
-

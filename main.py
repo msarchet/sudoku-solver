@@ -25,11 +25,10 @@ if __name__ == '__main__':
     ]
 
     solver = sodoku_solver.SudokuSolver()
-    solver.solve_basic(problem)
-    print(*problem, sep = "\n")
-    print(solver.recursions_basic)
+    solver.solve_basic(problem, True)
+    print(*problem, sep="\n")
+    print(f'{solver.recursions_basic} Recursions for guess and check')
 
-    solver.solve_mrv(problem_copy)
-    print(*problem_copy, sep = "\n")
-    print(solver.recursions_mrv)
-
+    solver.solve_mrv(problem_copy, True)
+    print(*problem_copy, sep="\n")
+    print(f'{solver.recursions_mrv} Recursions for MRV')
