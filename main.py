@@ -1,18 +1,7 @@
 import sodoku_solver
 
 if __name__ == '__main__':
-    problem_copy = [
-        [0,8,9, 7,5,0, 0,0,0],
-        [5,0,0, 0,3,0, 0,0,0],
-        [3,0,7, 0,0,6, 0,0,0],
-        [7,0,0, 0,0,5, 3,0,0],
-        [8,2,0, 0,0,0, 0,9,5],
-        [0,0,5, 2,0,0, 0,0,1],
-        [0,0,0, 4,0,0, 7,0,6],
-        [0,0,0, 0,9,0, 0,0,3],
-        [0,0,0, 0,7,3, 8,1,0]
-    ]
-    problem = [
+    hard_problem_copy = [
         [0,8,9, 7,5,0, 0,0,0],
         [5,0,0, 0,3,0, 0,0,0],
         [3,0,7, 0,0,6, 0,0,0],
@@ -24,11 +13,49 @@ if __name__ == '__main__':
         [0,0,0, 0,7,3, 8,1,0]
     ]
 
+    hard_problem = [
+        [0,8,9, 7,5,0, 0,0,0],
+        [5,0,0, 0,3,0, 0,0,0],
+        [3,0,7, 0,0,6, 0,0,0],
+        [7,0,0, 0,0,5, 3,0,0],
+        [8,2,0, 0,0,0, 0,9,5],
+        [0,0,5, 2,0,0, 0,0,1],
+        [0,0,0, 4,0,0, 7,0,6],
+        [0,0,0, 0,9,0, 0,0,3],
+        [0,0,0, 0,7,3, 8,1,0]
+    ]
+
+    extreme_problem = [
+        [0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,3,0,8,5],
+        [0,0,1,0,2,0,0,0,0],
+        [0,0,0,5,0,7,0,0,0],
+        [0,0,4,0,0,0,1,0,0],
+        [0,9,0,0,0,0,0,0,0],
+        [5,0,0,0,0,0,0,7,3],
+        [0,0,2,0,1,0,0,0,0],
+        [0,0,0,0,4,0,0,0,9],
+    ]
+ 
+    extreme_problem_copy = [
+        [0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,3,0,8,5],
+        [0,0,1,0,2,0,0,0,0],
+        [0,0,0,5,0,7,0,0,0],
+        [0,0,4,0,0,0,1,0,0],
+        [0,9,0,0,0,0,0,0,0],
+        [5,0,0,0,0,0,0,7,3],
+        [0,0,2,0,1,0,0,0,0],
+        [0,0,0,0,4,0,0,0,9],
+    ]
+ 
     solver = sodoku_solver.SudokuSolver()
-    solver.solve_basic(problem, True)
-    print(*problem, sep="\n")
-    print(f'{solver.recursions_basic} Recursions for guess and check')
+#    problem = extreme_problem
+#    solver.solve_basic(problem, True)
+#    print(*problem, sep="\n")
+#    print(f'{solver.recursions_basic} Recursions for guess and check')
 
-    solver.solve_mrv(problem_copy, True)
-    print(*problem_copy, sep="\n")
+    problem = extreme_problem_copy
+    solver.solve_mrv(problem, True)
+    print(*problem, sep="\n")
     print(f'{solver.recursions_mrv} Recursions for MRV')
